@@ -7,7 +7,13 @@ import { Controller, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 
-import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles'
+import {
+  CloseButton,
+  Content,
+  Overlay,
+  TransactionType,
+  TransactionTypeButton,
+} from './styles'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -16,21 +22,25 @@ const newTransactionFormSchema = z.object({
   type: z.enum(['income', 'expense']),
 })
 
-type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
+type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-  const { control, register, handleSubmit, formState: { isSubmitting }, reset } = useForm<NewTransactionFormInputs>({
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
   })
 
   const { createTransaction } = useContext(TransactionsContext)
 
-
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
+    await createTransaction(data)
 
-    await createTransaction(data);
-
-    reset();
+    reset()
   }
 
   return (
@@ -45,25 +55,43 @@ export function NewTransactionModal() {
         </CloseButton>
 
         <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
-          <input type="text" placeholder='Descrição' required {...register('description')} />
-          <input type="number" placeholder='Preço' required {...register('price', {
-            valueAsNumber: true
-          })} />
-          <input type="text" placeholder='Categoria' required {...register('category')} />
+          <input
+            type="text"
+            placeholder="Descrição"
+            required
+            {...register('description')}
+          />
+          <input
+            type="number"
+            placeholder="Preço"
+            required
+            {...register('price', {
+              valueAsNumber: true,
+            })}
+          />
+          <input
+            type="text"
+            placeholder="Categoria"
+            required
+            {...register('category')}
+          />
 
-          <Controller 
+          <Controller
             control={control}
             name="type"
             render={({ field }) => {
               console.log(field)
 
               return (
-                <TransactionType onValueChange={field.onChange} value={field.value}>
-                  <TransactionTypeButton variant='income' value='income'>
-                    <ArrowCircleUp size={24} />  
+                <TransactionType
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <TransactionTypeButton variant="income" value="income">
+                    <ArrowCircleUp size={24} />
                     Entrada
                   </TransactionTypeButton>
-                  <TransactionTypeButton variant='expense' value='expense'>
+                  <TransactionTypeButton variant="expense" value="expense">
                     <ArrowCircleDown size={24} />
                     Saída
                   </TransactionTypeButton>
@@ -72,10 +100,10 @@ export function NewTransactionModal() {
             }}
           />
 
-          <button type='submit' disabled={isSubmitting}>Cadastrar</button>
+          <button type="submit" disabled={isSubmitting}>
+            Cadastrar
+          </button>
         </form>
-
-       
       </Content>
     </Dialog.Portal>
   )
