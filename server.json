@@ -15,6 +15,38 @@
       "category": "Alimentação",
       "price": 50,
       "createdAt": "2022-07-29T18:45:44.505Z"
+    },
+    {
+      "description": "desenvolvimento de app",
+      "category": "Venda",
+      "price": 10000,
+      "type": "income",
+      "createdAt": "2022-09-08T21:51:21.701Z",
+      "id": 3
+    },
+    {
+      "description": "nova transação",
+      "category": "lazer",
+      "price": 234,
+      "type": "expense",
+      "createdAt": "2022-09-08T22:10:34.174Z",
+      "id": 4
+    },
+    {
+      "description": "calça da vans",
+      "category": "roupas",
+      "price": 375,
+      "type": "expense",
+      "createdAt": "2022-09-08T22:11:40.267Z",
+      "id": 5
+    },
+    {
+      "description": "bucket hat",
+      "category": "acessórios",
+      "price": 260,
+      "type": "expense",
+      "createdAt": "2022-09-08T22:12:19.815Z",
+      "id": 6
     }
   ]
 }
